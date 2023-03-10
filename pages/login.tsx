@@ -1,18 +1,49 @@
 import Image from 'next/image'
 
 // import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Pagination, Scrollbar, A11y } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+
+import {
+  Formik,
+  FormikErrors,
+  FormikProps,
+  Form,
+  Field,
+  FieldProps,
+  ErrorMessage,
+} from 'formik';
+
+import * as yup from 'yup';
+
+// import Head from 'next/head'
+import MyTextInput from './myTextInput';
+
+// Shape of form values
+interface FormValues {
+  name: string,
+  email: string,
+  password: string,
+}
+
 
 
 export default function login() {
+
+  let registerFormSchema = yup.object().shape({
+    name: yup.string().required().min(3),
+    email : yup.string().required().email(),
+    password : yup.string().required().min(8),
+  })
+
+  const SubmitHandler = (values : FormValues) => {
+    console.log( 'submit' , values)
+  }
   
   return (
     <main className="bg-gradient-to-r from-[#acb2c2] to-[#c0c5cf] w-full h-screen pt-[5rem] font-[sans-serif]">
@@ -95,8 +126,44 @@ export default function login() {
         
         
         </div>
-        <div className="right-side ">
-          <h2>asd</h2>
+        <div className="right-side pl-10 pt-10 pr-4">
+          <h3 className="text-2xl font-semibold ">Get started</h3>
+          <p className="mt-2 text-slate-400 mb-10">Create  your account now</p>
+          <Formik
+            initialValues = {{
+              name: '',
+              email : '',
+              password : '',
+            }}
+            validationSchema={registerFormSchema}
+            onSubmit={SubmitHandler}
+          >
+            <Form>
+              <MyTextInput
+                label="Full name"
+                name="name"
+                type="text"
+              />
+
+              <MyTextInput
+                label="Email"
+                name="email"
+                type="text"
+              />
+
+              <MyTextInput
+                label="Password"
+                name="password"
+                type="text"
+              />
+
+              <button type="submit" className="w-full bg-[#3c38ff] text-white py-[.5rem] mt-8 rounded-md hover:bg-white
+              hover:text-[#3c38ff] border-2 border-[#3c38ff] transition-all 
+              ">Sign Up</button>
+
+              <p className="text-[#8b8d96] text-center mt-8">Have an account?<a className="text-[#3c38ff]" href="#">Login</a></p>
+            </Form>
+          </Formik>
         </div>
       </div>
     </main>
