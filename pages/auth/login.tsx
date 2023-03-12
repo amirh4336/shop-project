@@ -3,11 +3,8 @@ import Head from "next/head";
 
 import LoginForm from "../../app/forms/auth/loginForm";
 
-
-const login : NextPage = () => {
-
-
-  return(
+const login: NextPage = () => {
+  return (
     <>
       <Head>
         <title>sign in form</title>
@@ -16,16 +13,16 @@ const login : NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="bg-gradient-to-r from-[#acb2c2] to-[#c0c5cf] w-full h-screen pt-[5rem] font-[sans-serif]">
-      <div className="bg-white rounded-2xl grid max-w-[30rem] p-4 mx-auto ">
+        <div className="bg-white rounded-2xl grid max-w-[30rem] p-4 mx-auto ">
           <div className="right-side pl-10 pt-10 pr-4">
             <h3 className="text-[2.5rem] font-semibold ">Log in</h3>
             <p className="mt-2 text-slate-400 mb-1">Create your account now</p>
             <LoginForm />
           </div>
         </div>
-      </main>    
+      </main>
     </>
-  )
-}
+  );
+};
 
-export default login
+export default login;
