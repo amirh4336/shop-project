@@ -13,19 +13,7 @@ import "swiper/css/pagination";
 
 import RegisterForm from "../../app/forms/auth/registerForm";
 
-// Shape of form values
-// interface FormValues {
-//   name: string;
-//   email: string;
-//   password: string;
-// }
-
-const login: NextPage = () => {
-  // let registerFormSchema = yup.object().shape({
-  //   name: yup.string().required().min(3),
-  //   email: yup.string().required().email(),
-  //   password: yup.string().required().min(8),
-  // });
+const register: NextPage = () => {
 
   return (
     <>
@@ -175,4 +163,4 @@ const login: NextPage = () => {
   );
 };
 
-export default login;
+export default register;

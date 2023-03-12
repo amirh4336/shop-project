@@ -1,8 +1,6 @@
 import { Form, FormikProps, withFormik } from "formik";
 
 import * as yup from "yup";
-import YupPassword from 'yup-password'
-YupPassword(yup) // extend yup
 
 import MyTextInput from "../../components/shared/form/myTextInput";
 
@@ -27,13 +25,13 @@ const InnerRegisterForm = (props: FormikProps<FormValues>) => {
         className="w-full bg-[#3c38ff] text-white py-[.5rem] mt-8 rounded-md hover:bg-white
               hover:text-[#3c38ff] border-2 border-[#3c38ff] transition-all "
       >
-        Sign Up
+        Log in
       </button>
 
       <p className="text-[#8b8d96] text-center mt-8">
         Have an account?
-        <a className="text-[#3c38ff]" href="/auth/login">
-          Login
+        <a className="text-[#3c38ff]" href="/auth/register">
+          Sign in
         </a>
       </p>
     </Form>
@@ -56,9 +54,6 @@ const registerFormValidationSchema = yup.object().shape({
   password: yup
   .string()
   .required('Please Enter your password')
-  .minUppercase(1, 'must at least has 1 upercase')
-  .minNumbers(1, 'must at least has 1 number')
-  .minSymbols(1, 'must at least has 1 symbol')
   .min(8, 'must at least has words 8')
 });
 
