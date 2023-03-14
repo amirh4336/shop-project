@@ -5,19 +5,20 @@ import * as yup from "yup";
 
 import { LoginFormValuesInterface } from "../../contracts/auth/index";
 import InnerLoginForm from "../../components/auth/innnerLoginForm";
+import callApi from '../../helpers/callApi';
 
 
 const loginFormValidationSchema = yup.object().shape({
-  name: yup.string().required("Please Enter a fullname").min(2),
   email: yup.string().required("Please Enter your Email").email(),
   password: yup
     .string()
     .required("Please Enter your password")
-    .min(8, "must at least has words 8"),
+    .min(8)
 });
 
 
 interface LoginFormProps {
+  setCookies : any
 }
 
 const LoginForm = withFormik<LoginFormProps, LoginFormValuesInterface>({
@@ -26,8 +27,16 @@ const LoginForm = withFormik<LoginFormProps, LoginFormValuesInterface>({
     password: "",
   }),
   validationSchema: loginFormValidationSchema,
-  handleSubmit: (values) => {
-    console.log(values);
+  handleSubmit: async (values , {props}) => {
+    const res = await callApi().post('/auth/login' , values)
+    if (res.status === 200) {
+      props.setCookies('shopy-token' , res.data.token , {
+        'maxAge' : 3600 * 24 * 30,
+        'domain' : 'localhost',
+        'path' : '/',
+        'sameSite' : 'lax'
+      })
+    }
   },
 })(InnerLoginForm);
 

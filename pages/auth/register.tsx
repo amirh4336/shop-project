@@ -24,8 +24,8 @@ const register: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="bg-gradient-to-r from-[#acb2c2] to-[#c0c5cf] w-full h-screen pt-[5rem] font-[sans-serif]">
-        <div className="max-w-[55rem] bg-white rounded-2xl grid grid-cols-2 p-4 mx-auto ">
-          <div className="left-side bg-[#f3f5f9] rounded-2xl p-8 pb-0">
+        <div className="max-w-[55rem] bg-white rounded-2xl grid grid-cols-1 lg:grid-cols-2 p-4 mx-auto ">
+          <div className="left-side hidden lg:block bg-[#f3f5f9] rounded-2xl p-8 pb-0">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="#3c38ff"

@@ -6,6 +6,9 @@ YupPassword(yup) // extend yup
 
 import { LoginFormValuesInterface } from "../../contracts/auth";
 import InnerRegisterForm from "../../components/auth/innerRegisterForm";
+import callApi from '../../helpers/callApi';
+import  Router from "next/router";
+
 
 interface RegisterFormProps {
   name?: string;
@@ -36,8 +39,11 @@ const RegisterForm = withFormik<RegisterFormProps, LoginFormValuesInterface>({
     password: "",
   }),
   validationSchema: registerFormValidationSchema,
-  handleSubmit: (values) => {
-    console.log(values);
+  handleSubmit: async (values) => {
+    const res = await callApi().post('/auth/register' , values)
+    if (res.status === 201) {
+      Router.push('/auth/login')
+    }
   },
 })(InnerRegisterForm);
 
