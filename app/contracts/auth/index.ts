@@ -18,3 +18,6 @@ export interface RegisterNumberFormValuesInterface {
 export interface LoginNumberFormValuesInterface {
   phone?: string;
 }
+export interface VerifyNumberFormValuesInterface {
+  code?: string;
+}

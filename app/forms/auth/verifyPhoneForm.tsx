@@ -3,8 +3,8 @@ import  Router from "next/router";
 
 import * as yup from "yup";
 
-import { LoginNumberFormValuesInterface } from "../../contracts/auth/index";
-import InnerLoginFormNumber from "../../components/auth/innerLoginFormNumber";
+import { VerifyNumberFormValuesInterface } from "../../contracts/auth/index";
+import InnerVerifyPhoneForm from "../../components/auth/innerVerifyPhoneForm";
 import callApi from "../../helpers/callApi";
 import ValidationError from "../../exceptions/validationError";
 
@@ -12,13 +12,13 @@ const loginFormValidationSchema = yup.object().shape({
   phone: yup.number().required("Please Enter your number"),
 });
 
-interface LoginFormProps {
+interface VerifyFormProps {
   setCookies: any;
 }
 
-const LoginFormNumber = withFormik<LoginFormProps, LoginNumberFormValuesInterface>({
+const VerifyPhoneForm = withFormik<VerifyFormProps, VerifyNumberFormValuesInterface>({
   mapPropsToValues: (props) => ({
-    phone: "",
+    code: "",
   }),
   validationSchema: loginFormValidationSchema,
   handleSubmit: async (values, { props, setFieldError }) => {
@@ -31,7 +31,7 @@ const LoginFormNumber = withFormik<LoginFormProps, LoginNumberFormValuesInterfac
           path: "/",
           sameSite: "lax",
         });
-        Router.push('/auth/login/verify-phone')
+        Router.push('/auth/register')
       }
     } catch (error) {
       if (error instanceof ValidationError) {
@@ -41,6 +41,6 @@ const LoginFormNumber = withFormik<LoginFormProps, LoginNumberFormValuesInterfac
       }
     }
   },
-})(InnerLoginFormNumber);
+})(InnerVerifyPhoneForm);
 
-export default LoginFormNumber;
+export default VerifyPhoneForm;

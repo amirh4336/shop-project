@@ -2,8 +2,8 @@ import { NextPage } from "next";
 import { useState } from "react";
 import Head from "next/head";
 import { useCookies } from "react-cookie";
-import LoginForm from "../../app/forms/auth/loginForm";
-import LoginFormNumber from "../../app/forms/auth/loginFormNumber";
+import LoginForm from "../../../app/forms/auth/loginForm";
+import LoginFormNumber from "../../../app/forms/auth/loginFormNumber";
 
 const login: NextPage = () => {
   const [cookies, setCookie] = useCookies(["shopy-token"]);
