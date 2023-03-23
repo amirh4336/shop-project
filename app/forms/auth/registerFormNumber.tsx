@@ -27,10 +27,12 @@ const registerFormValidationSchema = yup.object().shape({
 const RegisterForm = withFormik<RegisterFormProps, RegisterNumberFormValuesInterface>({
   mapPropsToValues: (props) => ({
     name: props.name ?? "",
-    phone: undefined,
+    phone: "",
   }),
   validationSchema: registerFormValidationSchema,
   handleSubmit: async (values) => {
+    console.log(values);
+    
     const res = await callApi().post('/auth/register' , values)
     if (res.status === 201) {
       Router.push('/auth/login')

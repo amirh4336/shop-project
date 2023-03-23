@@ -8,7 +8,7 @@ const InnerRegisterFormNumber = (props: FormikProps<RegisterFormValuesInterFace>
     <Form className="flex flex-col space-y-[1.8rem]">
       <MyTextInput label="Full name" name="name" type="text" />
 
-      <MyTextInput label="Phone number" name="phone" type="number" />
+      <MyTextInput label="Phone number" name="phone" type="text" />
 
       <button
         type="submit"

@@ -7,7 +7,7 @@ const InnerLoginFormNumber = (
 ) => {
   return (
     <Form className="flex flex-col space-y-[1.8rem]">
-      <MyTextInput label="Phone number" name="phone" type="number" />
+      <MyTextInput label="Phone number" name="phone" type="text" />
 
       <button
         type="submit"

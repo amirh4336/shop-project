@@ -17,7 +17,7 @@ interface LoginFormProps {
 
 const LoginFormNumber = withFormik<LoginFormProps, LoginNumberFormValuesInterface>({
   mapPropsToValues: (props) => ({
-    phone: undefined,
+    phone: "",
   }),
   validationSchema: loginFormValidationSchema,
   handleSubmit: async (values, { props, setFieldError }) => {

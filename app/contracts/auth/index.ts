@@ -12,9 +12,9 @@ export interface RegisterFormValuesInterFace {
 }
 
 export interface RegisterNumberFormValuesInterface {
-  phone?: number;
+  phone?: string;
 }
 
 export interface LoginNumberFormValuesInterface {
-  phone?: number;
+  phone?: string;
 }
