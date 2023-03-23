@@ -10,3 +10,11 @@ export interface RegisterFormValuesInterFace {
   email: string;
   password: string;
 }
+
+export interface RegisterNumberFormValuesInterface {
+  phone?: number;
+}
+
+export interface LoginNumberFormValuesInterface {
+  phone?: number;
+}

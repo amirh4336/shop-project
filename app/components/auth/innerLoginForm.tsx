@@ -18,12 +18,6 @@ const InnerLoginForm = (props: FormikProps<LoginFormValuesInterface>) => {
         Log in
       </button>
 
-      <p className="text-[#8b8d96] text-center mt-8">
-        Have an account?
-        <a className="text-[#3c38ff]" href="/auth/register">
-          Sign in
-        </a>
-      </p>
     </Form>
   );
 };

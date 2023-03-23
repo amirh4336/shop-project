@@ -3,14 +3,12 @@ import { RegisterFormValuesInterFace } from "../../contracts/auth";
 import MyTextInput from "../shared/form/myTextInput";
 
 
-const InnerRegisterForm = (props: FormikProps<RegisterFormValuesInterFace>) => {
+const InnerRegisterFormNumber = (props: FormikProps<RegisterFormValuesInterFace>) => {
   return (
     <Form className="flex flex-col space-y-[1.8rem]">
       <MyTextInput label="Full name" name="name" type="text" />
 
-      <MyTextInput label="Email" name="email" type="email" />
-
-      <MyTextInput label="Password" name="password" type="password" />
+      <MyTextInput label="Phone number" name="phone" type="number" />
 
       <button
         type="submit"
@@ -24,4 +22,4 @@ const InnerRegisterForm = (props: FormikProps<RegisterFormValuesInterFace>) => {
   );
 };
 
-export default InnerRegisterForm
+export default InnerRegisterFormNumber

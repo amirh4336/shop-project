@@ -4,7 +4,7 @@ import * as yup from "yup";
 
 
 import { LoginFormValuesInterface } from "../../contracts/auth/index";
-import InnerLoginForm from "../../components/auth/innnerLoginForm";
+import InnerLoginForm from "../../components/auth/innerLoginForm";
 import callApi from '../../helpers/callApi';
 import ValidationError from "../../exceptions/validationError";
 

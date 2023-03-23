@@ -12,9 +12,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import RegisterForm from "../../app/forms/auth/registerForm";
+import RegisterFormNumber from "../../app/forms/auth/registerFormNumber";
+import { useState } from "react";
 
 const register: NextPage = () => {
-
+  const [showPhone, setShowPhone] = useState(false);
   return (
     <>
       <Head>
@@ -154,8 +156,24 @@ const register: NextPage = () => {
           </div>
           <div className="right-side pl-10 pt-10 pr-4">
             <h3 className="text-2xl font-semibold ">Get started</h3>
-            <p className="mt-2 text-slate-400 mb-10">Create your account now</p>
-            <RegisterForm />
+            <p className="mt-2 text-slate-400 mb-6">Create your account now</p>
+            <div className="custom-border rounded-md  mb-4 relative">
+              <button
+                className="block bg-white w-full text-center border py-1"
+                onClick={() => setShowPhone(!showPhone)}
+              >
+                Sign up with {showPhone ? "phone number" : "email"}
+              </button>
+            </div>
+            <hr />
+            {showPhone ? <RegisterForm /> : <RegisterFormNumber />}
+
+            <p className="text-[#8b8d96] text-center mt-8">
+              Have an account?
+              <a className="text-[#3c38ff]" href="/auth/login">
+                Login
+              </a>
+            </p>
           </div>
         </div>
       </main>

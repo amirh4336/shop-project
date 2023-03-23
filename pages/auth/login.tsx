@@ -1,11 +1,14 @@
 import { NextPage } from "next";
+import { useState } from "react";
 import Head from "next/head";
 import { useCookies } from "react-cookie";
 import LoginForm from "../../app/forms/auth/loginForm";
+import LoginFormNumber from "../../app/forms/auth/loginFormNumber";
 
 const login: NextPage = () => {
+  const [cookies, setCookie] = useCookies(["shopy-token"]);
 
-  const [cookies , setCookie] = useCookies(['shopy-token'])
+  const [showPhone, setShowPhone] = useState(false);
 
   return (
     <>
@@ -19,8 +22,27 @@ const login: NextPage = () => {
         <div className="bg-white rounded-2xl grid max-w-[30rem] p-4 mx-auto ">
           <div className="right-side pl-10 pt-10 pr-4">
             <h3 className="text-[2.5rem] font-semibold ">Log in</h3>
-            <p className="mt-2 text-slate-400 mb-1">Create your account now</p>
-            <LoginForm setCookies={setCookie}/>
+            <p className="my-3 text-slate-400">Create your account now</p>
+            <div className="custom-border rounded-md  mb-4 relative">
+              <button
+                className="block bg-white w-full text-center border py-1"
+                onClick={() => setShowPhone(!showPhone)}
+              >
+                Log in with {showPhone ? "phone number" : "email"}
+              </button>
+            </div>
+            <hr className="mt-4 mb-1" />
+            {showPhone ? (
+              <LoginForm setCookies={setCookie} />
+            ) : (
+              <LoginFormNumber setCookies={setCookie} />
+            )}
+            <p className="text-[#8b8d96] text-center mt-8">
+              Have an account?
+              <a className="text-[#3c38ff]" href="/auth/register">
+                Sign in
+              </a>
+            </p>
           </div>
         </div>
       </main>
