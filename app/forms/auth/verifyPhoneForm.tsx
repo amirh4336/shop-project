@@ -1,5 +1,5 @@
 import { withFormik } from "formik";
-import  Router from "next/router";
+import Router from "next/router";
 
 import * as yup from "yup";
 
@@ -8,30 +8,35 @@ import InnerVerifyPhoneForm from "../../components/auth/innerVerifyPhoneForm";
 import callApi from "../../helpers/callApi";
 import ValidationError from "../../exceptions/validationError";
 
-const loginFormValidationSchema = yup.object().shape({
-  phone: yup.number().required("Please Enter your number"),
+const verifyPhoneFormValidationSchema = yup.object().shape({
+  code: yup
+    .string()
+    .required("Please Enter your number")
+    .matches(/^[0-9]+$/, "only use numbers")
+    .length(6, "code must be exactly 6 numbers"),
 });
 
 interface VerifyFormProps {
-  setCookies: any;
+  token?: string;
+  clearToken : () => void
 }
 
-const VerifyPhoneForm = withFormik<VerifyFormProps, VerifyNumberFormValuesInterface>({
+const VerifyPhoneForm = withFormik<
+  VerifyFormProps,
+  VerifyNumberFormValuesInterface
+>({
   mapPropsToValues: (props) => ({
     code: "",
+    token: props.token || "",
   }),
-  validationSchema: loginFormValidationSchema,
+  validationSchema: verifyPhoneFormValidationSchema,
   handleSubmit: async (values, { props, setFieldError }) => {
     try {
-      const res = await callApi().post("/auth/login", values);
+      const res = await callApi().post("/auth/login/verify-phone", values);
       if (res.status === 200) {
-        props.setCookies("verify-shopy-token", res.data.token, {
-          maxAge: 3600 * 24 * 30,
-          domain: "localhost",
-          path: "/",
-          sameSite: "lax",
-        });
-        Router.push('/auth/register')
+        // clear phone verify token from redux
+        props.clearToken()
+        Router.push("/");
       }
     } catch (error) {
       if (error instanceof ValidationError) {

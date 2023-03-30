@@ -19,7 +19,7 @@ const loginFormValidationSchema = yup.object().shape({
 
 
 interface LoginFormProps {
-  setCookies : any
+  setToken : (token : string) => void
 }
 
 const LoginForm = withFormik<LoginFormProps, LoginFormValuesInterface>({
@@ -32,12 +32,12 @@ const LoginForm = withFormik<LoginFormProps, LoginFormValuesInterface>({
     try {
       const res = await callApi().post('/auth/login' , values)
       if (res.status === 200) {
-        props.setCookies('shopy-token' , res.data.token , {
-          'maxAge' : 3600 * 24 * 30,
-          'domain' : 'localhost',
-          'path' : '/',
-          'sameSite' : 'lax'
-        })
+        // props.setCookies('shopy-token' , res.data.token , {
+        //   'maxAge' : 3600 * 24 * 30,
+        //   'domain' : 'localhost',
+        //   'path' : '/',
+        //   'sameSite' : 'lax'
+        // })
       }
     } catch (error) {
       if (error instanceof ValidationError) {

@@ -1,10 +1,34 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { useCookies } from "react-cookie";
 import VerifyPhoneForm from "../../../app/forms/auth/verifyPhoneForm";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import {
+  selectPhoneVerifyToken,
+  updatePhoneVerifyToken,
+} from "../../../app/store/auth";
+import Router, { useRouter } from "next/router";
+import { useEffect } from "react";
 
-const login: NextPage = () => {
-  const [cookies, setCookie] = useCookies(["shopy-token"]);
+const PhoneVerify: NextPage = () => {
+  const dispatch = useAppDispatch();
+  const token = useAppSelector(selectPhoneVerifyToken);
+
+  const clearPhoneVerfyToken = () => {
+    dispatch(updatePhoneVerifyToken(undefined));
+  };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    router.beforePopState(() => {
+      clearPhoneVerfyToken();
+      return true;
+    });
+
+    if (token === undefined) {
+      Router.push("/auth/login");
+    }
+  }, [router]);
 
   return (
     <>
@@ -19,7 +43,7 @@ const login: NextPage = () => {
           <div className="right-side pl-10 pt-10 pr-4">
             <h3 className="text-[2.5rem] font-semibold ">verify phone</h3>
             <p className="my-3 text-slate-400">please enter your code </p>
-            <VerifyPhoneForm setCookies={setCookie} />
+            <VerifyPhoneForm token={token} clearToken={clearPhoneVerfyToken} />
           </div>
         </div>
       </main>
@@ -27,4 +51,4 @@ const login: NextPage = () => {
   );
 };
 
-export default login;
+export default PhoneVerify;

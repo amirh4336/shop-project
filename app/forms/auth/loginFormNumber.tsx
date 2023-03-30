@@ -1,5 +1,5 @@
 import { withFormik } from "formik";
-import  Router from "next/router";
+import Router from "next/router";
 
 import * as yup from "yup";
 
@@ -8,15 +8,23 @@ import InnerLoginFormNumber from "../../components/auth/innerLoginFormNumber";
 import callApi from "../../helpers/callApi";
 import ValidationError from "../../exceptions/validationError";
 
+const phoneRegExp = /^(0|0098|\+98)9(0[1-5]|[1 3]\d|2[0-2]|98)\d{7}$/;
 const loginFormValidationSchema = yup.object().shape({
-  phone: yup.number().required("Please Enter your number"),
+  phone: yup
+    .string()
+    .required("Please Enter your number")
+    .min(8)
+    .matches(phoneRegExp, "the phone format is not correct"),
 });
 
 interface LoginFormProps {
-  setCookies: any;
+  setToken : (token : string) => void
 }
 
-const LoginFormNumber = withFormik<LoginFormProps, LoginNumberFormValuesInterface>({
+const LoginFormNumber = withFormik<
+  LoginFormProps,
+  LoginNumberFormValuesInterface
+>({
   mapPropsToValues: (props) => ({
     phone: "",
   }),
@@ -25,13 +33,8 @@ const LoginFormNumber = withFormik<LoginFormProps, LoginNumberFormValuesInterfac
     try {
       const res = await callApi().post("/auth/login", values);
       if (res.status === 200) {
-        props.setCookies("verify-shopy-token", res.data.token, {
-          maxAge: 3600 * 24 * 30,
-          domain: "localhost",
-          path: "/",
-          sameSite: "lax",
-        });
-        Router.push('/auth/login/verify-phone')
+        props.setToken(res.data.token)
+        Router.push("/auth/login/verify-phone");
       }
     } catch (error) {
       if (error instanceof ValidationError) {

@@ -1,12 +1,17 @@
 import { NextPage } from "next";
 import { useState } from "react";
 import Head from "next/head";
-import { useCookies } from "react-cookie";
 import LoginForm from "../../../app/forms/auth/loginForm";
 import LoginFormNumber from "../../../app/forms/auth/loginFormNumber";
+import { useAppDispatch } from "../../../app/hooks";
+import { updatePhoneVerifyToken } from "../../../app/store/auth";
 
 const login: NextPage = () => {
-  const [cookies, setCookie] = useCookies(["shopy-token"]);
+
+  const dispatch = useAppDispatch();
+  const setPhoneVerifyToken = (token: string) => {
+    dispatch(updatePhoneVerifyToken(token));
+  };
 
   const [showPhone, setShowPhone] = useState(false);
 
@@ -33,9 +38,10 @@ const login: NextPage = () => {
             </div>
             <hr className="mt-4 mb-1" />
             {showPhone ? (
-              <LoginForm setCookies={setCookie} />
+              null
+              // <LoginForm setToken={setPhoneVerifyToken} />
             ) : (
-              <LoginFormNumber setCookies={setCookie} />
+              <LoginFormNumber setToken={setPhoneVerifyToken} />
             )}
             <p className="text-[#8b8d96] text-center mt-8">
               Have an account?

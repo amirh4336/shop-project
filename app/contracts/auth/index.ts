@@ -12,12 +12,14 @@ export interface RegisterFormValuesInterFace {
 }
 
 export interface RegisterNumberFormValuesInterface {
-  phone?: string;
+  name: string;
+  phone: string;
 }
 
 export interface LoginNumberFormValuesInterface {
-  phone?: string;
+  phone: string;
 }
 export interface VerifyNumberFormValuesInterface {
-  code?: string;
+  code: string,
+  token: string
 }
