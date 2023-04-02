@@ -7,6 +7,7 @@ import { VerifyNumberFormValuesInterface } from "../../contracts/auth/index";
 import InnerVerifyPhoneForm from "../../components/auth/innerVerifyPhoneForm";
 import callApi from "../../helpers/callApi";
 import ValidationError from "../../exceptions/validationError";
+import { storeLoginToken } from "../../helpers/auth";
 
 const verifyPhoneFormValidationSchema = yup.object().shape({
   code: yup
@@ -34,9 +35,10 @@ const VerifyPhoneForm = withFormik<
     try {
       const res = await callApi().post("/auth/login/verify-phone", values);
       if (res.status === 200) {
+        storeLoginToken(res.data?.user?.token)
         // clear phone verify token from redux
         props.clearToken()
-        Router.push("/");
+        // Router.push("/");
       }
     } catch (error) {
       if (error instanceof ValidationError) {
